@@ -37,7 +37,7 @@ function ImpactMap() {
   const [cat, setCat] = useState<Category | "all">("all");
   const [sel, setSel] = useState<number | null>(16);
   const [open, setOpen] = useState<Challenge | null>(null);
-  const [view, setView] = useState({ k: 1.6, x: -180, y: -40 });
+  const [view, setView] = useState({ k: 1, x: 0, y: -40 });
   const drag = useRef<{ x: number; y: number; vx: number; vy: number } | null>(null);
 
   const outline = useMemo(() => ALGERIA_OUTLINE.map(([lng, lat]) => `${px(lng)},${py(lat)}`).join(" "), []);
@@ -67,7 +67,7 @@ function ImpactMap() {
       >
         <svg
           viewBox={`0 0 ${VB_W} ${VB_H}`}
-          className="absolute left-1/2 top-1/2 h-[120vh] w-auto max-w-none"
+          className="absolute left-1/2 top-1/2 h-[78vh] w-auto max-w-none"
           style={{ transform: `translate(calc(-50% + ${view.x}px), calc(-50% + ${view.y}px)) scale(${view.k})`, transition: drag.current ? "none" : "transform .35s ease" }}
         >
           <defs>
@@ -182,8 +182,8 @@ function ImpactMap() {
           >
             <Sparkles className="h-7 w-7" />
           </button>
-          <button onClick={() => setView({ k: 1, x: 0, y: 0 })} className="press glass h-12 flex-1 rounded-full text-sm font-bold">{t("national")}</button>
-          <button aria-label="موقعي" onClick={() => { setSel(s.wilaya); setView({ k: 2.4, x: -260, y: -60 }); }} className="press glass grid h-12 w-12 place-items-center rounded-full"><LocateFixed className="h-5 w-5" /></button>
+          <button onClick={() => setView({ k: 1, x: 0, y: -40 })} className="press glass h-12 flex-1 rounded-full text-sm font-bold">{t("national")}</button>
+          <button aria-label="موقعي" onClick={() => { setSel(s.wilaya); setView({ k: 2.6, x: 40, y: 420 }); }} className="press glass grid h-12 w-12 place-items-center rounded-full"><LocateFixed className="h-5 w-5" /></button>
         </div>
       </div>
       <ChallengeSheet c={open} onClose={() => setOpen(null)} />
