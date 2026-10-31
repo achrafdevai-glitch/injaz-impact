@@ -128,7 +128,7 @@ export function levelFromXp(xp: number) {
 export function tierFromXp(xp: number) {
   let idx = 0;
   TIERS.forEach((t, i) => xp >= t.min && (idx = i));
-  return { tier: TIERS[idx], next: TIERS[idx + 1] };
+  return { tier: TIERS[idx] ?? TIERS[0]!, next: TIERS[idx + 1] };
 }
 
 export function wilayaName(code: number, lang: string) {

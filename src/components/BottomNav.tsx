@@ -42,7 +42,7 @@ export function BottomNav() {
   const visualIdx = lang === "ar" ? ITEMS.length - 1 - activeIdx : activeIdx;
   const cx = slot * visualIdx + slot / 2;
   const d = barPath(W, cx);
-  const ActiveIcon = ITEMS[activeIdx].Icon;
+  const ActiveIcon = ITEMS[activeIdx]?.Icon ?? Home;
 
   return (
     <nav

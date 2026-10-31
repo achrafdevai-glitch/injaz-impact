@@ -7,7 +7,7 @@ function isRefusedContext(): boolean {
   const h = window.location.hostname.toLowerCase();
   if (new URLSearchParams(window.location.search).get("sw") === "off") return true;
   const previewLabel = /^(?:id-preview|preview)(?:-[a-z0-9]+)?--.+$/;
-  const first = h.split(".")[0];
+  const first = h.split(".")[0] ?? "";
   for (const d of [".lovable.app", ".gpt-eng.com", ".gptengineer.run"]) {
     if (h.endsWith(d) && (previewLabel.test(first) || /^project--.+-dev$/.test(first))) return true;
   }
