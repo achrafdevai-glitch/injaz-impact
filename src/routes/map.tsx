@@ -96,8 +96,8 @@ function ImpactMap() {
               <g key={code} onPointerDown={(e) => e.stopPropagation()} onClick={() => setSel(code)} className="cursor-pointer">
                 {items ? (
                   <>
-                    <circle cx={x} cy={y} r={isSel ? 22 : 16} fill={CAT_COLOR[items[0].category]} opacity="0.18" />
-                    <circle cx={x} cy={y} r={isSel ? 11 : 8} fill={CAT_COLOR[items[0].category]} stroke="var(--card)" strokeWidth="3" />
+                    <circle cx={x} cy={y} r={isSel ? 22 : 16} fill={CAT_COLOR[items[0]!.category]} opacity="0.18" />
+                    <circle cx={x} cy={y} r={isSel ? 11 : 8} fill={CAT_COLOR[items[0]!.category]} stroke="var(--card)" strokeWidth="3" />
                   </>
                 ) : (
                   <circle cx={x} cy={y} r={isSel ? 7 : 4} fill="var(--forest)" opacity={isSel ? 0.9 : 0.35} />
