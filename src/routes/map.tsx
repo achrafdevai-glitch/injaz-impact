@@ -37,7 +37,7 @@ function ImpactMap() {
   const [cat, setCat] = useState<Category | "all">("all");
   const [sel, setSel] = useState<number | null>(16);
   const [open, setOpen] = useState<Challenge | null>(null);
-  const [view, setView] = useState({ k: 1, x: 0, y: -40 });
+  const [view, setView] = useState({ k: 0.62, x: 0, y: -70 });
   const drag = useRef<{ x: number; y: number; vx: number; vy: number } | null>(null);
 
   const outline = useMemo(() => ALGERIA_OUTLINE.map(([lng, lat]) => `${px(lng)},${py(lat)}`).join(" "), []);
@@ -48,10 +48,10 @@ function ImpactMap() {
   const selList = sel ? byW.get(sel) ?? [] : [];
   const home = WILAYAS.find((w) => w[0] === s.wilaya)!;
 
-  const zoom = (f: number) => setView((v) => ({ ...v, k: Math.min(5, Math.max(0.8, v.k * f)) }));
+  const zoom = (f: number) => setView((v) => ({ ...v, k: Math.min(5, Math.max(0.5, v.k * f)) }));
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-mint dark:bg-night">
+    <div className="fixed inset-0 overflow-hidden bg-[radial-gradient(circle_at_50%_30%,var(--mint),var(--background))] dark:bg-night">
       {/* map canvas */}
       <div
         className="absolute inset-0 touch-none"
@@ -76,7 +76,7 @@ function ImpactMap() {
             </pattern>
             <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor="var(--card)" />
-              <stop offset="1" stopColor="var(--muted)" />
+              <stop offset="1" stopColor="var(--mint)" stopOpacity="0.6" />
             </linearGradient>
           </defs>
           <rect x="-500" y="-500" width="2000" height="2000" fill="url(#grid)" />
@@ -96,11 +96,13 @@ function ImpactMap() {
               <g key={code} onPointerDown={(e) => e.stopPropagation()} onClick={() => setSel(code)} className="cursor-pointer">
                 {items ? (
                   <>
-                    <circle cx={x} cy={y} r={isSel ? 22 : 16} fill={CAT_COLOR[items[0]!.category]} opacity="0.18" />
-                    <circle cx={x} cy={y} r={isSel ? 11 : 8} fill={CAT_COLOR[items[0]!.category]} stroke="var(--card)" strokeWidth="3" />
+                    <circle cx={x} cy={y} r={isSel ? 44 : 34} fill={CAT_COLOR[items[0]!.category]} opacity="0.12" />
+                    <circle cx={x} cy={y} r={isSel ? 30 : 22} fill={CAT_COLOR[items[0]!.category]} opacity="0.25" className="animate-pulse" />
+                    <circle cx={x} cy={y} r={isSel ? 16 : 12} fill={CAT_COLOR[items[0]!.category]} stroke="var(--card)" strokeWidth="4" />
+                    <text x={x} y={y + 5} textAnchor="middle" fontSize="13" fontWeight="800" fill="var(--card)">{items.length}</text>
                   </>
                 ) : (
-                  <circle cx={x} cy={y} r={isSel ? 7 : 4} fill="var(--forest)" opacity={isSel ? 0.9 : 0.35} />
+                  <circle cx={x} cy={y} r={isSel ? 12 : 7} fill="var(--forest)" opacity={isSel ? 0.9 : 0.35} />
                 )}
               </g>
             );
@@ -182,8 +184,8 @@ function ImpactMap() {
           >
             <Sparkles className="h-7 w-7" />
           </button>
-          <button onClick={() => setView({ k: 1, x: 0, y: -40 })} className="press glass h-12 flex-1 rounded-full text-sm font-bold">{t("national")}</button>
-          <button aria-label="موقعي" onClick={() => { setSel(s.wilaya); setView({ k: 2.6, x: 40, y: 420 }); }} className="press glass grid h-12 w-12 place-items-center rounded-full"><LocateFixed className="h-5 w-5" /></button>
+          <button onClick={() => setView({ k: 0.62, x: 0, y: -70 })} className="press glass h-12 flex-1 rounded-full text-sm font-bold">{t("national")}</button>
+          <button aria-label="موقعي" onClick={() => { setSel(s.wilaya); setView({ k: 2.2, x: 20, y: 330 }); }} className="press glass grid h-12 w-12 place-items-center rounded-full"><LocateFixed className="h-5 w-5" /></button>
         </div>
       </div>
       <ChallengeSheet c={open} onClose={() => setOpen(null)} />
