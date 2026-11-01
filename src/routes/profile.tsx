@@ -4,6 +4,7 @@ import { Screen } from "@/components/Screen";
 import { BADGES, CHALLENGES, levelFromXp, tierFromXp, wilayaName } from "@/lib/data";
 import { useI18n } from "@/lib/i18n";
 import { useStore } from "@/lib/store";
+import profilePhoto from "@/assets/profile-photo.jpg.asset.json";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -36,7 +37,7 @@ function Profile() {
             <p className="text-[11px] opacity-60">{t("volunteerHours")}</p>
           </div>
           <div className="relative grid h-28 w-28 place-items-center rounded-full border-2 border-on-dark/70 p-1">
-            <div className="bg-hero grid h-full w-full place-items-center rounded-full font-display text-4xl font-black">{s.name[0]}</div>
+            <img src={profilePhoto.url} alt={s.name} width={112} height={112} className="h-full w-full rounded-full object-cover object-[65%_48%]" />
             <span className="absolute -bottom-1 rounded-full bg-gold px-2 py-0.5 text-[10px] font-black text-ink">{t("level")} {lv.level}</span>
           </div>
           <div className="text-center">

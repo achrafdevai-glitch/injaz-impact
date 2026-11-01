@@ -42,7 +42,6 @@ export function BottomNav() {
   const visualIdx = lang === "ar" ? ITEMS.length - 1 - activeIdx : activeIdx;
   const cx = slot * visualIdx + slot / 2;
   const d = barPath(W, cx);
-  const ActiveIcon = ITEMS[activeIdx]?.Icon ?? Home;
 
   return (
     <nav
@@ -50,13 +49,6 @@ export function BottomNav() {
       className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-[max(14px,env(safe-area-inset-bottom))]"
     >
       <div ref={ref} dir="ltr" className="pointer-events-auto relative w-full max-w-[440px]" style={{ height: H + 26 }}>
-        {/* floating active circle */}
-        <div
-          className="nav-path absolute z-10 grid h-14 w-14 place-items-center rounded-full bg-emerald text-primary-foreground shadow-float"
-          style={{ top: 0, left: cx - 28, transition: "left .45s cubic-bezier(.3,1.4,.5,1)" }}
-        >
-          <ActiveIcon className="h-6 w-6" strokeWidth={2.2} />
-        </div>
         {/* carved glass bar */}
         <div className="absolute inset-x-0 bottom-0 shadow-float" style={{ height: H, borderRadius: 30 }}>
           <div
@@ -64,7 +56,7 @@ export function BottomNav() {
             style={{ clipPath: `path('${d}')`, background: "var(--nav-bar)" }}
           />
           <svg className="pointer-events-none absolute inset-0" width={W} height={H}>
-            <path className="nav-path" d={d} fill="none" stroke="oklch(1 0 0 / 0.16)" strokeWidth="1" />
+            <path className="nav-path" d={d} fill="none" stroke="var(--nav-outline)" strokeWidth="1" />
           </svg>
           <ul className="relative flex h-full">
             {ITEMS.map((it, i) => {
@@ -77,10 +69,10 @@ export function BottomNav() {
                     aria-current={isActive ? "page" : undefined}
                     className="press flex h-full flex-col items-center justify-center gap-1 text-on-dark/60"
                   >
-                    <it.Icon className={`h-[22px] w-[22px] transition-opacity ${isActive ? "opacity-0" : ""}`} strokeWidth={1.7} />
+                    <it.Icon className={`h-[22px] w-[22px] transition-[color,transform] duration-300 motion-reduce:transition-none ${isActive ? "scale-110 text-nav-active" : ""}`} strokeWidth={isActive ? 2.2 : 1.7} />
                     <span
                       dir={lang === "ar" ? "rtl" : "ltr"}
-                      className={`text-[10.5px] font-semibold leading-none transition-all ${isActive ? "translate-y-2 text-on-dark" : ""}`}
+                      className={`text-[10.5px] font-semibold leading-none transition-colors ${isActive ? "text-on-dark" : ""}`}
                     >
                       {t(it.key)}
                     </span>
