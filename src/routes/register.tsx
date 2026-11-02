@@ -33,8 +33,8 @@ function Register() {
       <p className="mb-6 text-sm text-muted-foreground">املأ معلوماتك للانضمام إلى إنجاز</p>
       <form className="space-y-4" onSubmit={(e) => {
         e.preventDefault();
-        if (!card) return toast.error("يرجى إرفاق صورة البطاقة الوطنية");
-        if (!days.length) return toast.error("اختر يوماً واحداً على الأقل");
+        if (!card) { toast.error("يرجى إرفاق صورة البطاقة الوطنية"); return; }
+        if (!days.length) { toast.error("اختر يوماً واحداً على الأقل"); return; }
         localStorage.setItem("injaz-onboarded", "1");
         toast.success("تم التسجيل بنجاح");
         nav({ to: "/" });

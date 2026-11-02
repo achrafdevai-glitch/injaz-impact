@@ -69,7 +69,7 @@ function Bar({ t, lang }: { t: ReturnType<typeof useI18n>["t"]; lang: string }) 
             className="absolute grid h-[52px] w-[52px] place-items-center rounded-full bg-emerald text-primary-foreground shadow-float transition-[left] duration-300"
             style={{ left: cx - 26, top: -24 }}
           >
-            {(() => { const A = ITEMS[activeIdx].Icon; return <A className="h-[22px] w-[22px]" strokeWidth={2.2} />; })()}
+            {(() => { const A = ITEMS[activeIdx]!.Icon; return <A className="h-[22px] w-[22px]" strokeWidth={2.2} />; })()}
           </span>
           <ul className="relative flex h-full">
             {ITEMS.map((it, i) => {

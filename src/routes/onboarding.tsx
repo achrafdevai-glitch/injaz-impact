@@ -24,7 +24,7 @@ function Onboarding() {
   const [i, setI] = useState(0);
   const last = i === SLIDES.length - 1;
   const done = () => localStorage.setItem("injaz-onboarded", "1");
-  const sl = SLIDES[i];
+  const sl = SLIDES[i]!;
   return (
     <main className="mx-auto flex min-h-screen max-w-[480px] flex-col items-center justify-between px-6 py-10 text-center">
       <img src="/logo.png" alt="إنجاز" className="h-20 w-20 rounded-2xl" />
