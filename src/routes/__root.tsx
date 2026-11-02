@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useNavigate,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -106,9 +107,12 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const navigate = useNavigate();
   useEffect(() => {
     registerServiceWorker();
-  }, []);
+    const p = window.location.pathname;
+    if (!localStorage.getItem("injaz-onboarded") && p !== "/onboarding" && p !== "/register") navigate({ to: "/onboarding" });
+  }, [navigate]);
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
