@@ -21,6 +21,12 @@ function barPath(W: number, cx: number) {
 
 export function BottomNav() {
   const { t, lang } = useI18n();
+  const path0 = useRouterState({ select: (s) => s.location.pathname });
+  if (path0 === "/onboarding" || path0 === "/register") return null;
+  return <Bar t={t} lang={lang} />;
+}
+
+function Bar({ t, lang }: { t: ReturnType<typeof useI18n>["t"]; lang: string }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const ref = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(380);
@@ -58,6 +64,13 @@ export function BottomNav() {
           <svg className="pointer-events-none absolute inset-0" width={W} height={H}>
             <path className="nav-path" d={d} fill="none" stroke="var(--nav-outline)" strokeWidth="1" />
           </svg>
+          <span
+            aria-hidden="true"
+            className="absolute grid h-[52px] w-[52px] place-items-center rounded-full bg-emerald text-primary-foreground shadow-float transition-[left] duration-300"
+            style={{ left: cx - 26, top: -24 }}
+          >
+            {(() => { const A = ITEMS[activeIdx]!.Icon; return <A className="h-[22px] w-[22px]" strokeWidth={2.2} />; })()}
+          </span>
           <ul className="relative flex h-full">
             {ITEMS.map((it, i) => {
               const isActive = i === activeIdx;
@@ -69,7 +82,7 @@ export function BottomNav() {
                     aria-current={isActive ? "page" : undefined}
                     className="press flex h-full flex-col items-center justify-center gap-1 text-on-dark/60"
                   >
-                    <it.Icon className={`h-[22px] w-[22px] transition-[color,transform] duration-300 motion-reduce:transition-none ${isActive ? "scale-110 text-nav-active" : ""}`} strokeWidth={isActive ? 2.2 : 1.7} />
+                    <it.Icon className={`h-[22px] w-[22px] transition-[color,transform] duration-300 motion-reduce:transition-none ${isActive ? "opacity-0" : ""}`} strokeWidth={isActive ? 2.2 : 1.7} />
                     <span
                       dir={lang === "ar" ? "rtl" : "ltr"}
                       className={`text-[10.5px] font-semibold leading-none transition-colors ${isActive ? "text-on-dark" : ""}`}

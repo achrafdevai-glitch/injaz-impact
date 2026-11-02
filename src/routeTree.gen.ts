@@ -14,7 +14,9 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ChallengesRouteImport } from './routes/challenges'
 import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as MapRouteImport } from './routes/map'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as RewardsRouteImport } from './routes/rewards'
 import { Route as SettingsRouteImport } from './routes/settings'
 
@@ -43,9 +45,19 @@ const MapRoute = MapRouteImport.update({
   path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RewardsRoute = RewardsRouteImport.update({
@@ -65,7 +77,9 @@ export interface FileRoutesByFullPath {
   '/challenges': typeof ChallengesRoute
   '/leaderboard': typeof LeaderboardRoute
   '/map': typeof MapRoute
+  '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/register': typeof RegisterRoute
   '/rewards': typeof RewardsRoute
   '/settings': typeof SettingsRoute
 }
@@ -75,7 +89,9 @@ export interface FileRoutesByTo {
   '/challenges': typeof ChallengesRoute
   '/leaderboard': typeof LeaderboardRoute
   '/map': typeof MapRoute
+  '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/register': typeof RegisterRoute
   '/rewards': typeof RewardsRoute
   '/settings': typeof SettingsRoute
 }
@@ -86,7 +102,9 @@ export interface FileRoutesById {
   '/challenges': typeof ChallengesRoute
   '/leaderboard': typeof LeaderboardRoute
   '/map': typeof MapRoute
+  '/onboarding': typeof OnboardingRoute
   '/profile': typeof ProfileRoute
+  '/register': typeof RegisterRoute
   '/rewards': typeof RewardsRoute
   '/settings': typeof SettingsRoute
 }
@@ -98,7 +116,9 @@ export interface FileRouteTypes {
     | '/challenges'
     | '/leaderboard'
     | '/map'
+    | '/onboarding'
     | '/profile'
+    | '/register'
     | '/rewards'
     | '/settings'
   fileRoutesByTo: FileRoutesByTo
@@ -108,7 +128,9 @@ export interface FileRouteTypes {
     | '/challenges'
     | '/leaderboard'
     | '/map'
+    | '/onboarding'
     | '/profile'
+    | '/register'
     | '/rewards'
     | '/settings'
   id:
@@ -118,7 +140,9 @@ export interface FileRouteTypes {
     | '/challenges'
     | '/leaderboard'
     | '/map'
+    | '/onboarding'
     | '/profile'
+    | '/register'
     | '/rewards'
     | '/settings'
   fileRoutesById: FileRoutesById
@@ -129,7 +153,9 @@ export interface RootRouteChildren {
   ChallengesRoute: typeof ChallengesRoute
   LeaderboardRoute: typeof LeaderboardRoute
   MapRoute: typeof MapRoute
+  OnboardingRoute: typeof OnboardingRoute
   ProfileRoute: typeof ProfileRoute
+  RegisterRoute: typeof RegisterRoute
   RewardsRoute: typeof RewardsRoute
   SettingsRoute: typeof SettingsRoute
 }
@@ -171,11 +197,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rewards': {
@@ -201,7 +241,9 @@ const rootRouteChildren: RootRouteChildren = {
   ChallengesRoute: ChallengesRoute,
   LeaderboardRoute: LeaderboardRoute,
   MapRoute: MapRoute,
+  OnboardingRoute: OnboardingRoute,
   ProfileRoute: ProfileRoute,
+  RegisterRoute: RegisterRoute,
   RewardsRoute: RewardsRoute,
   SettingsRoute: SettingsRoute,
 }
