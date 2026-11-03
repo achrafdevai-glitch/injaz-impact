@@ -46,7 +46,11 @@ Set readable=false if the image is not a readable ID card. complete=true only if
               properties: { first_name: { type: "string" }, last_name: { type: "string" }, birth_date: { type: "string" }, card_number: { type: "string" } } },
           } } } },
       });
-      const text = res.output?.flatMap((o) => ("content" in o && Array.isArray(o.content) ? o.content : [])).map((c) => ("text" in c ? c.text : "")).join("") ?? "";
+      let text = "";
+      for (const o of res.output ?? []) {
+        if (o.type !== "message") continue;
+        for (const c of o.content) if (c.type === "output_text") text += c.text;
+      }
       return JSON.parse(text) as CardReview;
     } catch (e) {
       console.error("id review failed", e);
