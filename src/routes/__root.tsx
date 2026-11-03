@@ -111,7 +111,7 @@ function RootComponent() {
   useEffect(() => {
     registerServiceWorker();
     const p = window.location.pathname;
-    if (!localStorage.getItem("injaz-onboarded") && p !== "/onboarding" && p !== "/register") navigate({ to: "/onboarding" });
+    if (!localStorage.getItem("injaz-onboarded") && p !== "/onboarding" && p !== "/register" && p !== "/auth") navigate({ to: "/onboarding" });
   }, [navigate]);
   return (
     <QueryClientProvider client={queryClient}>

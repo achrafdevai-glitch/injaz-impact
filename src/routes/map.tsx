@@ -41,19 +41,7 @@ function ImpactMap() {
   const selList = sel ? byW.get(sel) ?? [] : [];
   const home = WILAYAS.find((w) => w[0] === s.wilaya) ?? WILAYAS[0];
   const [photo, setPhoto] = useState<string>(walkImage);
-  useEffect(() => {
-    if (!selW) { setPhoto(walkImage); return; }
-    const k = "wp-" + selW[0]; const c = sessionStorage.getItem(k);
-    if (c) { setPhoto(c); return; }
-    let live = true;
-    fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(selW[2] + " Algeria city")}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=900&format=json&origin=*`)
-      .then((r) => r.json()).then((j) => {
-        const pg = j?.query?.pages && Object.values(j.query.pages)[0] as { thumbnail?: { source: string } } | undefined;
-        const u = pg?.thumbnail?.source ?? walkImage;
-        sessionStorage.setItem(k, u); if (live) setPhoto(u);
-      }).catch(() => live && setPhoto(walkImage));
-    return () => { live = false; };
-  }, [selW]);
+  useEffect(() => { setPhoto(selW ? `/wilayas/${String(selW[0]).padStart(2, "0")}.jpg` : walkImage); }, [selW]);
   const zoom = (f: number) => setView((v) => ({ ...v, k: Math.min(5, Math.max(0.5, v.k * f)) }));
   const locate = () => {
     setSel(s.wilaya);
@@ -64,7 +52,7 @@ function ImpactMap() {
   return (
     <main className="map-screen">
       <div className="map-experience">
-        <img className="map-street" src={photo} alt={selW ? wilayaName(selW[0], lang) : ""} onError={() => setPhoto(walkImage)} width={768} height={1344} />
+        <img className="map-street" src={photo} alt={selW ? wilayaName(selW[0], lang) : ""} onError={() => setPhoto("/wilayas/fallback.jpg")} width={768} height={1344} />
         <div className="map-street-shade" />
         <header className="map-heading"><span>إنجاز</span><h1>{t("map")}</h1><span className="map-heading-dot" /></header>
         <div className="map-statistics">

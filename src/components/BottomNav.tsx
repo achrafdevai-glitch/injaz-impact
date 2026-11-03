@@ -22,7 +22,7 @@ function barPath(W: number, cx: number) {
 export function BottomNav() {
   const { t, lang } = useI18n();
   const path0 = useRouterState({ select: (s) => s.location.pathname });
-  if (path0 === "/onboarding" || path0 === "/register") return null;
+  if (path0 === "/onboarding" || path0 === "/register" || path0 === "/auth") return null;
   return <Bar t={t} lang={lang} />;
 }
 
