@@ -36,7 +36,7 @@ function Onboarding() {
       <div className="w-full space-y-4">
         <div className="flex justify-center gap-2">{SLIDES.map((_, j) => <span key={j} className={`h-2 rounded-full transition-all ${j === i ? "w-6 bg-primary" : "w-2 bg-muted"}`} />)}</div>
         {last ? (
-          <Button asChild className="h-12 w-full rounded-full"><Link to="/register" onClick={done}>إنشاء حساب</Link></Button>
+          <Button asChild className="h-12 w-full rounded-full"><Link to="/auth" onClick={done}>إنشاء حساب</Link></Button>
         ) : (
           <Button className="h-12 w-full rounded-full" onClick={() => setI(i + 1)}>التالي</Button>
         )}
