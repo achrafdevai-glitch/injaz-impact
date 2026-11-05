@@ -8,6 +8,20 @@
       "when": 1793645285933,
       "tag": "0000_migration",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793839295610,
+      "tag": "0001_admin_platform_foundation",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793839312139,
+      "tag": "0002_submissions_bucket_policies",
+      "breakpoints": true
     }
   ]
 }
